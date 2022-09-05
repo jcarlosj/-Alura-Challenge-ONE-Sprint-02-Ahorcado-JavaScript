@@ -20,16 +20,31 @@
             </a>
         </header>
         <main class="main">
-            <section class="text">
-                <textarea id="textarea" class="textarea" name="text" placeholder="Ingrese texto aquí" autofocus></textarea>
-            </section>
-            <section class="actions">
-                <p class="info">Máx. 8 letras</p>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-encrypt">Guardar y empezar</button>
-                    <button type="button" class="btn btn-decrypt">Cancelar</button>
+
+            <section class="home">
+                <div class="actions">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-start">Iniciar juego</button>
+                        <button type="button" class="btn btn-add-word">Agregar nueva palabra</button>
+                    </div>
                 </div>
             </section>
+
+            <section class="new-word">
+                <div class="text">
+                    <textarea id="textarea" class="textarea" name="text" placeholder="Ingrese texto aquí" autofocus></textarea>
+                </div>
+                <div class="actions">
+                    <p class="info">Máx. 8 letras</p>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-save">Guardar y empezar</button>
+                        <button type="button" class="btn btn-decrypt">Cancelar</button>
+                    </div>
+                </div>
+            </section>
+
+
+
         </main>
     </div>
     <footer class="footer container">

@@ -33,6 +33,16 @@ a {
     padding: 16px 0 80px 0;
 }
 
+/** Sections */
+.home {
+    display: grid;
+    height: 70vh;
+}
+
+.new-word {
+    display: none;
+} 
+
 .textarea {
     align-items: center;
     background: #E5E5E5;
@@ -50,7 +60,10 @@ a {
 }
 
 .actions {
+    margin: 0 auto;
     width: 100%;
+    border: 1px dotted darkorange;
+    display: grid;
 }
 
 .info {
@@ -87,12 +100,15 @@ a {
     gap: 8px;
     justify-content: center;
 }
-.btn-encrypt {
+
+.btn-save,
+.btn-start {
     background: #0A3871;
     border: 1px solid #0A3871;
     color: #FFF;
 }
-.btn-decrypt {
+.btn-cancel,
+.btn-add-word {
     color: #0A3871;
     border: 1px solid #0A3871;
 }
@@ -129,18 +145,24 @@ a {
 
 @media ( min-width: 768px ) {
     .btn-group {
-        flex-direction: row;
+        flex-direction: column;
+    }
+    .home .btn-group {
+        gap: 2rem;
+    }
+    .btn {
+        max-width: 25rem;
+        width: 22rem;
+    }
+    .btn-start {
+        height: 6rem;
+        width: 25rem;
     }
 }
 
 @media ( min-width: 1024px ) {
     .footer {
         width: 75%;
-    }
-    .actions,
-    .textarea {
-        margin: 0 auto;
-        width: 82%;
     }
 }
 
