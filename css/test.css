@@ -21,3 +21,13 @@
 .result {
     border: 1px solid orange;
 }
+
+.actions {
+    border: 1px dotted darkorange;
+}
+.canvas {
+    border: 1px dotted blue;
+}
+.canvas-layout {
+    border: 1px dotted red;
+}
