@@ -1,0 +1,23 @@
+* {
+    /* border: 1px dotted green; */
+}
+
+.container {
+    /* background-color: orange; */
+}
+
+.logo-link {
+    /* border: 4px solid red;    */
+}
+
+.aside {
+    /* background-color: blue; */
+}
+
+.main {
+    /* background-color: blue; */
+}
+
+.result {
+    border: 1px solid orange;
+}
