@@ -44,12 +44,11 @@ a {
 
 /** Sections */
 .home {
-    /* display: grid; */
-    display: none;
+    display: grid;
     height: 70vh;
 }
-
-.new-word {
+.new-word,
+.game {
     display: none;
 } 
 
