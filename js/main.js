@@ -51,6 +51,9 @@ function buttonEvents( game ) {
     btnDesist.addEventListener( 'click', () => {
         sectionGame.style.display = 'none';
         sectionHome.style.display = 'flex';
+
+        game.deleteSelectedWord();
+        showConsole( 'Desist Game!', game.wordSelected );
     });
 }
 
@@ -187,6 +190,10 @@ class Game {
             wordSelected = this.words[ Math.round( Math.random() * arrayLength ) ];
         
         this.wordSelected = wordSelected;
+    }
+
+    deleteSelectedWord() {
+        this.wordSelected = '';
     }
 }
 
