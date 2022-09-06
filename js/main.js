@@ -1,5 +1,11 @@
+function showConsole( message, data ) {
+    console.group( message );
+    console.info( data );
+    console.groupEnd();
+}
 
-function buttonEvents() {
+/** Eventos click en los botones */
+function buttonEvents( game ) {
     const
         anio = document.querySelector( '.anio' ),
         sectionHome = document.querySelector( '.home' ),
@@ -17,6 +23,9 @@ function buttonEvents() {
     btnStart.addEventListener( 'click', () => {
         sectionHome.style.display = 'none';
         sectionGame.style.display = 'block';
+        
+        game.selectWord();
+        showConsole( 'Start Game!', game.wordSelected );
     });
 
     btnAddWord.addEventListener( 'click', () => {
@@ -35,7 +44,8 @@ function buttonEvents() {
     });
 
     btnNewGame.addEventListener( 'click', () => {
-        console.log( 'New Game!' );
+        game.selectWord();
+        showConsole( 'New Game!', game.wordSelected );
     });
 
     btnDesist.addEventListener( 'click', () => {
@@ -44,6 +54,7 @@ function buttonEvents() {
     });
 }
 
+/** Dibujando el Ahorcado */
 function hangmanDrawing() {
     const 
         canvasEl = document.querySelector( '.canvas-layout' ),
@@ -82,7 +93,6 @@ function hangedRightArm( ctx ) {
     ctx.strokeStyle = '#0A3871';
     ctx.stroke();
 }
-
 function hangedLeftLeg( ctx ) {
     ctx.beginPath();
     ctx.moveTo( 275, 355 );
@@ -92,7 +102,6 @@ function hangedLeftLeg( ctx ) {
     ctx.strokeStyle = '#0A3871';
     ctx.stroke();
 }
-
 function hangedRightLeg( ctx ) {
     ctx.beginPath();
     ctx.moveTo( 275, 355 );
@@ -102,7 +111,6 @@ function hangedRightLeg( ctx ) {
     ctx.strokeStyle = '#0A3871';
     ctx.stroke();
 }
-
 function handedBody( ctx ) {
     ctx.beginPath();
     ctx.moveTo( 275, 260 );
@@ -112,7 +120,6 @@ function handedBody( ctx ) {
     ctx.strokeStyle = '#0A3871';
     ctx.stroke();
 }
-
 function handedHead( ctx ) {
     let 
         radius = 40,
@@ -127,7 +134,6 @@ function handedHead( ctx ) {
     ctx.strokeStyle = '#0A3871';
     ctx.stroke();
 }
-
 function gallowsNoose( ctx ) {
     ctx.beginPath();
     ctx.moveTo( 275, 75 );
@@ -137,7 +143,6 @@ function gallowsNoose( ctx ) {
     ctx.strokeStyle = '#0A3871';
     ctx.stroke();
 }
-
 function gallowsCrossbar( ctx ) {
     ctx.beginPath();
     ctx.moveTo( 75, 75 );
@@ -147,7 +152,6 @@ function gallowsCrossbar( ctx ) {
     ctx.strokeStyle = '#0A3871';
     ctx.stroke();
 }
-
 function gallowsPost( ctx ) {
     ctx.beginPath();
     ctx.moveTo( 75, 75 );
@@ -157,7 +161,6 @@ function gallowsPost( ctx ) {
     ctx.strokeStyle = '#0A3871';
     ctx.stroke();
 }
-
 function gallowsBase( ctx ) {
     ctx.beginPath();
     ctx.moveTo( 25, 500 );
@@ -168,7 +171,34 @@ function gallowsBase( ctx ) {
     ctx.stroke();
 }
 
+/** Agregar palabras */
+class Game {
+    words = [];
+    wordSelected = '';
+
+    constructor( words = [] ) {
+        this.words = words;
+    }
+    
+    /** Seleccionar palabra secreta de forma aleatoria */
+    selectWord() {
+        let
+            arrayLength = this.words.length - 1,
+            wordSelected = this.words[ Math.round( Math.random() * arrayLength ) ];
+        
+        this.wordSelected = wordSelected;
+    }
+}
+
+/**  */
+
 ( function () {
-    buttonEvents();
+    const game = new Game( [
+        'JavaScript',
+        'Responsive',
+        'Angular'
+    ]);
+
+    buttonEvents( game );
     hangmanDrawing();
 })();
