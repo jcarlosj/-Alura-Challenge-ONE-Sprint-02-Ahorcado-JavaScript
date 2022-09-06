@@ -16,7 +16,8 @@ function buttonEvents( game ) {
         btnSave = document.querySelector( '.btn-save' ),
         btnCancel = document.querySelector( '.btn-cancel' ),
         btnNewGame = document.querySelector( '.btn-new-game' ),
-        btnDesist = document.querySelector( '.btn-desist' );
+        btnDesist = document.querySelector( '.btn-desist' ),
+        newWord = document.querySelector( '#textarea' ); 
 
     anio.innerHTML = new Date().getFullYear();
 
@@ -36,6 +37,9 @@ function buttonEvents( game ) {
     btnSave.addEventListener( 'click', () => {
         sectionNewWord.style.display = 'none';
         sectionGame.style.display = 'block';
+
+        game.addWord( newWord.value );
+        showConsole( 'Save and Start Game!', game.words );
     });
 
     btnCancel.addEventListener( 'click', () => {
@@ -192,13 +196,18 @@ class Game {
         this.wordSelected = wordSelected;
     }
 
+    /** Elimina palabra secreta seleccionada */
     deleteSelectedWord() {
         this.wordSelected = '';
     }
+
+    /** Agrega una nueva palabra secreta */
+    addWord( newWord ) {
+        this.words = [ ...this.words, newWord ];
+    }
 }
 
-/**  */
-
+/** IIFE: Inicio app */
 ( function () {
     const game = new Game( [
         'JavaScript',
