@@ -289,15 +289,17 @@ class Game {
 
         wrongCharactersEl.innerHTML = '';
 
-        for( let i = 0; i < this.wrongCharacters.length; i++ ) {
+        this.wrongCharacters.forEach( ( character ) => {
             let liEl = document.createElement( 'li' );
 
             liEl.classList.add( 'wrong-character' );
-            liEl.textContent = this.wrongCharacters[ i ];
+            liEl.textContent = character;
             wrongCharactersEl.appendChild( liEl );
-        }
+
+        });
         
         console.log( this.wrongCharacters );
+        console.log( wrongCharactersEl );
         
     }
 
