@@ -17,14 +17,20 @@ function buttonEvents( game ) {
         btnCancel = document.querySelector( '.btn-cancel' ),
         btnNewGame = document.querySelector( '.btn-new-game' ),
         btnDesist = document.querySelector( '.btn-desist' ),
-        newWord = document.querySelector( '#textarea' ); 
+        newWord = document.querySelector( '#textarea' ),
+        bodyEl = document.querySelector( 'body' );
 
     anio.innerHTML = new Date().getFullYear();
+
+    const captureKey = event => {
+        game.captureKey( event );
+    }
 
     btnStart.addEventListener( 'click', () => {
         sectionHome.style.display = 'none';
         sectionGame.style.display = 'block';
         
+        bodyEl.addEventListener( 'keydown', captureKey );
         game.selectWord();
         showConsole( 'Start Game!', game.wordSelected );
     });
@@ -48,6 +54,7 @@ function buttonEvents( game ) {
     });
 
     btnNewGame.addEventListener( 'click', () => {
+        bodyEl.addEventListener( 'keydown', captureKey );
         game.selectWord();
         showConsole( 'New Game!', `${ game.isStarted } - ${ game.wordSelected }` );
     });
@@ -56,7 +63,8 @@ function buttonEvents( game ) {
         sectionGame.style.display = 'none';
         sectionHome.style.display = 'flex';
 
-        game.deleteSelectedWord();
+        bodyEl.removeEventListener( 'keydown', captureKey, false );
+        game.desist();
         game.stop();
         showConsole( 'Desist Game!', `${ game.isStarted } - ${ game.wordSelected }` );
     });
@@ -184,16 +192,14 @@ class Game {
     words = [];
     wordSelected = '';
     isStarted = false;
-    bodyEl = null;
 
     constructor( words = [] ) {
         this.words = words.map( word => word.toLowerCase() );
-        this.bodyEl = document.querySelector( 'body' );
     }
     
     /** Seleccionar palabra secreta de forma aleatoria */
     selectWord() {
-        this.deleteSelectedWord();
+        this.desist();
 
         let
             arrayLength = this.words.length - 1,
@@ -205,7 +211,7 @@ class Game {
     }
 
     /** Elimina palabra secreta seleccionada */
-    deleteSelectedWord() {
+    desist() {
         this.wordSelected = '';
     }
 
@@ -216,20 +222,22 @@ class Game {
 
     /**  */
     start() {
-        this.bodyEl.addEventListener( 'keydown', this.captureKey );
         this.isStarted = true;
-        
         this.showWord();
     }
 
     stop() {
-        this.bodyEl.removeEventListener( 'keydown', this.captureKey, false );
         this.isStarted = false;
     }
 
     captureKey( event ) {
         console.log( event.key );
         console.log( event.key === 'a' );
+        this.hello();
+    }
+
+    hello() {
+        console.log( 'Hello!' );
     }
 
     showWord() {
