@@ -233,9 +233,7 @@ class Game {
     }
 
     showWord() {
-        const
-            secretWordEl = document.querySelector( '#secret-word' ),
-            showWord = Array( this.wordSelected.length ).fill( false );
+        const secretWordEl = document.querySelector( '#secret-word' );
 
         console.log( this.showCharacter );
         secretWordEl.innerHTML = '';
