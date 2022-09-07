@@ -231,13 +231,18 @@ class Game {
     }
 
     captureKey( event ) {
-        console.log( event.key );
-        console.log( event.key === 'a' );
-        this.hello();
-    }
+        const separateWord = this.wordSelected.split( '' );
+        
+        separateWord.forEach( ( char, index ) => {
+            if( char === event.key || char === ' ' ) {
+                this.showCharacter[ index ] = true;
+            }
+        });
 
-    hello() {
-        console.log( 'Hello!' );
+        console.log( separateWord );
+        console.log( this.showCharacter );
+
+        this.showWord();
     }
 
     showWord() {
