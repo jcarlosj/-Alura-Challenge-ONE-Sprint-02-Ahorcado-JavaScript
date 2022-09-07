@@ -193,6 +193,8 @@ class Game {
     
     /** Seleccionar palabra secreta de forma aleatoria */
     selectWord() {
+        this.deleteSelectedWord();
+
         let
             arrayLength = this.words.length - 1,
             wordSelected = this.words[ Math.round( Math.random() * arrayLength ) ];
@@ -216,6 +218,7 @@ class Game {
         this.bodyEl.addEventListener( 'keydown', this.captureKey );
         this.isStarted = true;
         
+        this.showWord();
     }
 
     stop() {
@@ -227,6 +230,28 @@ class Game {
         console.log( event.key );
         console.log( event.key === 'a' );
     }
+
+    showWord() {
+        const secretWordEl = document.querySelector( '#secret-word' );
+
+        console.log( this.wordSelected.length );
+        secretWordEl.innerHTML = '';
+
+        for( let i = 0; i < this.wordSelected.length; i++ ) {
+            let
+                liEl = document.createElement( 'li' );
+
+            /** Valida si es un espacio y agrega una clase al elemento */
+            if( this.wordSelected[ i ] === ' ' ) {
+                liEl.classList.add( 'space' );
+            }
+
+            liEl.classList.add( 'character' );
+            liEl.textContent = this.wordSelected[ i ];
+            secretWordEl.appendChild( liEl );
+        }
+
+    }
 }
 
 
@@ -234,8 +259,8 @@ class Game {
 /** IIFE: Inicio app */
 ( function () {
     const game = new Game( [
-        'JavaScript',
-        'Responsive',
+        'FullStack JavaScript',
+        'Responsive Design',
         'Angular'
     ]);
 

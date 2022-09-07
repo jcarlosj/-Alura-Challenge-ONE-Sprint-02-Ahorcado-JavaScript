@@ -123,6 +123,23 @@ a {
     border: 1px solid #0A3871;
 }
 
+#secret-word {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-size: 2rem;
+}
+.character {
+    list-style: none;
+    border-bottom: 1px solid black;
+    width: 1.4rem;
+    text-align: center;
+}
+.space.character {
+    border: none;
+}
+
 .alert-box {
     background: #FFFFFF;
     border-radius: 32px;
