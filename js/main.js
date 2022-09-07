@@ -233,7 +233,6 @@ class Game {
     }
 
     captureKey( event ) {
-        const wrongCharactersEl = document.querySelector( '#wrong-characters' );
         const separateWord = this.wordSelected.split( '' );
         let found = false;
         
@@ -242,12 +241,10 @@ class Game {
                 this.showCharacter[ index ] = true;
                 found = true;
             }
-            
-            if( ! found )
-                // TODO: Listado caracteres errados, no esta filtrado correctamente
-                this.wrongCharacters.add( event.key );
-            
         });
+
+        if( ! found )
+            this.wrongCharacters.add( event.key );
 
         console.log( separateWord );
         console.log( this.showCharacter );
@@ -278,7 +275,7 @@ class Game {
             if( this.showCharacter[ i ] ) 
                 liEl.textContent = this.wordSelected[ i ];
             else
-                liEl.textContent = '';
+                liEl.innerHTML = '&nbsp;';
 
             secretWordEl.appendChild( liEl );
         }
@@ -292,13 +289,13 @@ class Game {
 
         wrongCharactersEl.innerHTML = '';
 
-        this.wrongCharacters.forEach( char => {
+        for( let i = 0; i < this.wrongCharacters.length; i++ ) {
             let liEl = document.createElement( 'li' );
 
             liEl.classList.add( 'wrong-character' );
-            liEl.textContent = char;
+            liEl.textContent = this.wrongCharacters[ i ];
             wrongCharactersEl.appendChild( liEl );
-        });
+        }
         
         console.log( this.wrongCharacters );
         
