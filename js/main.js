@@ -192,6 +192,7 @@ class Game {
     words = [];
     wordSelected = '';
     isStarted = false;
+    wrongCharacters = new Set();
 
     constructor( words = [] ) {
         this.words = words.map( word => word.toLowerCase() );
@@ -224,6 +225,7 @@ class Game {
     start() {
         this.isStarted = true;
         this.showWord();
+        this.showWrongCharacters();
     }
 
     stop() {
@@ -231,18 +233,28 @@ class Game {
     }
 
     captureKey( event ) {
+        const wrongCharactersEl = document.querySelector( '#wrong-characters' );
         const separateWord = this.wordSelected.split( '' );
+        let found = false;
         
         separateWord.forEach( ( char, index ) => {
-            if( char === event.key || char === ' ' ) {
+            if( char === event.key ) {
                 this.showCharacter[ index ] = true;
+                found = true;
             }
+            
+            if( ! found )
+                // TODO: Listado caracteres errados, no esta filtrado correctamente
+                this.wrongCharacters.add( event.key );
+            
         });
 
         console.log( separateWord );
         console.log( this.showCharacter );
+        console.log( this.wrongCharacters );
 
         this.showWord();
+        this.showWrongCharacters();
     }
 
     showWord() {
@@ -274,6 +286,24 @@ class Game {
         console.log( this.showCharacter );
 
     }
+
+    showWrongCharacters() {
+        const wrongCharactersEl = document.querySelector( '#wrong-characters' );
+
+        wrongCharactersEl.innerHTML = '';
+
+        this.wrongCharacters.forEach( char => {
+            let liEl = document.createElement( 'li' );
+
+            liEl.classList.add( 'wrong-character' );
+            liEl.textContent = char;
+            wrongCharactersEl.appendChild( liEl );
+        });
+        
+        console.log( this.wrongCharacters );
+        
+    }
+
 }
 
 

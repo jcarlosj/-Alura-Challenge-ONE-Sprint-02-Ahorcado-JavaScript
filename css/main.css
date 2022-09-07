@@ -123,21 +123,30 @@ a {
     border: 1px solid #0A3871;
 }
 
-#secret-word {
-    display: flex;
-    justify-content: center;
+/** Palabra secreta y caracteres errados */
+#secret-word,
+#wrong-characters {
     align-items: center;
-    gap: 1rem;
+    display: flex;
     font-size: 2rem;
+    gap: 1rem;
+    justify-content: center;
 }
 .character {
-    list-style: none;
     border-bottom: 1px solid black;
-    width: 1.4rem;
+    list-style: none;
     text-align: center;
+    text-transform: uppercase;
+    width: 1.4rem;
 }
 .space.character {
     border: none;
+}
+.wrong-character {
+    list-style: none;
+    text-align: center;
+    text-transform: uppercase;
+    width: 1.4rem;
 }
 
 .alert-box {
