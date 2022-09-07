@@ -200,6 +200,7 @@ class Game {
             wordSelected = this.words[ Math.round( Math.random() * arrayLength ) ];
         
         this.wordSelected = wordSelected;
+        this.showCharacter = Array( this.wordSelected.length ).fill( false );
         this.start();
     }
 
@@ -236,7 +237,7 @@ class Game {
             secretWordEl = document.querySelector( '#secret-word' ),
             showWord = Array( this.wordSelected.length ).fill( false );
 
-        console.log( showWord );
+        console.log( this.showCharacter );
         secretWordEl.innerHTML = '';
 
         for( let i = 0; i < this.wordSelected.length; i++ ) {
@@ -247,11 +248,11 @@ class Game {
             /** Valida si es un espacio y agrega una clase al elemento */
             if( this.wordSelected[ i ] === ' ' ) {
                 liEl.classList.add( 'space' );
-                showWord[ i ] = true;
+                this.showCharacter[ i ] = true;
             }
 
             /** Valida si el caracter se ha adivinado para ser mostrado */
-            if( showWord[ i ] ) 
+            if( this.showCharacter[ i ] ) 
                 liEl.textContent = this.wordSelected[ i ];
             else
                 liEl.textContent = '';
@@ -259,7 +260,7 @@ class Game {
             secretWordEl.appendChild( liEl );
         }
 
-        console.log( showWord );
+        console.log( this.showCharacter );
 
     }
 }
