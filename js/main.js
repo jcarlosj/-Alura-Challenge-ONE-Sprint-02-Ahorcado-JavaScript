@@ -232,24 +232,34 @@ class Game {
     }
 
     showWord() {
-        const secretWordEl = document.querySelector( '#secret-word' );
+        const
+            secretWordEl = document.querySelector( '#secret-word' ),
+            showWord = Array( this.wordSelected.length ).fill( false );
 
-        console.log( this.wordSelected.length );
+        console.log( showWord );
         secretWordEl.innerHTML = '';
 
         for( let i = 0; i < this.wordSelected.length; i++ ) {
-            let
-                liEl = document.createElement( 'li' );
+            let liEl = document.createElement( 'li' );
+
+            liEl.classList.add( 'character' );
 
             /** Valida si es un espacio y agrega una clase al elemento */
             if( this.wordSelected[ i ] === ' ' ) {
                 liEl.classList.add( 'space' );
+                showWord[ i ] = true;
             }
 
-            liEl.classList.add( 'character' );
-            liEl.textContent = this.wordSelected[ i ];
+            /** Valida si el caracter se ha adivinado para ser mostrado */
+            if( showWord[ i ] ) 
+                liEl.textContent = this.wordSelected[ i ];
+            else
+                liEl.textContent = '';
+
             secretWordEl.appendChild( liEl );
         }
+
+        console.log( showWord );
 
     }
 }
