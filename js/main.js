@@ -187,7 +187,7 @@ class Game {
     bodyEl = null;
 
     constructor( words = [] ) {
-        this.words = words;
+        this.words = words.map( word => word.toLowerCase() );
         this.bodyEl = document.querySelector( 'body' );
     }
     
@@ -211,7 +211,7 @@ class Game {
 
     /** Agrega una nueva palabra secreta */
     addWord( newWord ) {
-        this.words = [ ...this.words, newWord ];
+        this.words = [ ...this.words, newWord.toLowerCase() ];
     }
 
     /**  */
