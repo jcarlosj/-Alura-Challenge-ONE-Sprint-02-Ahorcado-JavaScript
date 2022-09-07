@@ -39,7 +39,7 @@ function buttonEvents( game ) {
         sectionGame.style.display = 'block';
 
         game.addWord( newWord.value );
-        showConsole( 'Save and Start Game!', game.words );
+        showConsole( 'Save and Start Game!', `${ game.isStarted } - ${ game.wordSelected }`  );
     });
 
     btnCancel.addEventListener( 'click', () => {
@@ -49,7 +49,7 @@ function buttonEvents( game ) {
 
     btnNewGame.addEventListener( 'click', () => {
         game.selectWord();
-        showConsole( 'New Game!', game.wordSelected );
+        showConsole( 'New Game!', `${ game.isStarted } - ${ game.wordSelected }` );
     });
 
     btnDesist.addEventListener( 'click', () => {
@@ -57,7 +57,8 @@ function buttonEvents( game ) {
         sectionHome.style.display = 'flex';
 
         game.deleteSelectedWord();
-        showConsole( 'Desist Game!', game.wordSelected );
+        game.stop();
+        showConsole( 'Desist Game!', `${ game.isStarted } - ${ game.wordSelected }` );
     });
 }
 
@@ -182,9 +183,12 @@ function gallowsBase( ctx ) {
 class Game {
     words = [];
     wordSelected = '';
+    isStarted = false;
+    bodyEl = null;
 
     constructor( words = [] ) {
         this.words = words;
+        this.bodyEl = document.querySelector( 'body' );
     }
     
     /** Seleccionar palabra secreta de forma aleatoria */
@@ -194,6 +198,7 @@ class Game {
             wordSelected = this.words[ Math.round( Math.random() * arrayLength ) ];
         
         this.wordSelected = wordSelected;
+        this.start();
     }
 
     /** Elimina palabra secreta seleccionada */
@@ -205,7 +210,26 @@ class Game {
     addWord( newWord ) {
         this.words = [ ...this.words, newWord ];
     }
+
+    /**  */
+    start() {
+        this.bodyEl.addEventListener( 'keydown', this.captureKey );
+        this.isStarted = true;
+        
+    }
+
+    stop() {
+        this.bodyEl.removeEventListener( 'keydown', this.captureKey, false );
+        this.isStarted = false;
+    }
+
+    captureKey( event ) {
+        console.log( event.key );
+        console.log( event.key === 'a' );
+    }
 }
+
+
 
 /** IIFE: Inicio app */
 ( function () {
