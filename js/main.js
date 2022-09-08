@@ -115,8 +115,8 @@ function hangmanDrawing() {
 
 function hangedLeftArm( ctx ) {
     ctx.beginPath();
-    ctx.moveTo( 275, 275 );
-    ctx.lineTo( 225, 355 );
+    ctx.moveTo( 220, 190 ); 
+    ctx.lineTo( 180, 270 ); 
     ctx.lineWidth = 4;
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#0A3871';
@@ -124,8 +124,8 @@ function hangedLeftArm( ctx ) {
 }
 function hangedRightArm( ctx ) {
     ctx.beginPath();
-    ctx.moveTo( 275, 275 );
-    ctx.lineTo( 325, 355 );
+    ctx.moveTo( 220, 190 );
+    ctx.lineTo( 260, 270 );
     ctx.lineWidth = 4;
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#0A3871';
@@ -133,8 +133,8 @@ function hangedRightArm( ctx ) {
 }
 function hangedLeftLeg( ctx ) {
     ctx.beginPath();
-    ctx.moveTo( 275, 355 );
-    ctx.lineTo( 225, 465 );
+    ctx.moveTo( 220, 285 ); 
+    ctx.lineTo( 180, 395 );
     ctx.lineWidth = 4;
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#0A3871';
@@ -142,8 +142,8 @@ function hangedLeftLeg( ctx ) {
 }
 function hangedRightLeg( ctx ) {
     ctx.beginPath();
-    ctx.moveTo( 275, 355 );
-    ctx.lineTo( 325, 465 );
+    ctx.moveTo( 220, 285 ); 
+    ctx.lineTo( 260, 395 );
     ctx.lineWidth = 4;
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#0A3871';
@@ -151,8 +151,8 @@ function hangedRightLeg( ctx ) {
 }
 function handedBody( ctx ) {
     ctx.beginPath();
-    ctx.moveTo( 275, 260 );
-    ctx.lineTo( 275, 355 );
+    ctx.moveTo( 220, 190 ); 
+    ctx.lineTo( 220, 285 );
     ctx.lineWidth = 4;
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#0A3871';
@@ -165,7 +165,7 @@ function handedHead( ctx ) {
         centerY = 220;
 
     ctx.beginPath();
-    ctx.arc( 275, 220, radius, 0, 2 * Math.PI, false );
+    ctx.arc( 220, 147, radius, 0, 2 * Math.PI, false );
     ctx.fillStyle = 'transparent';
     ctx.fill();
     ctx.lineWidth = 4;
@@ -174,8 +174,8 @@ function handedHead( ctx ) {
 }
 function gallowsNoose( ctx ) {
     ctx.beginPath();
-    ctx.moveTo( 275, 75 );
-    ctx.lineTo( 275, 175 );
+    ctx.moveTo( 220, 3 );
+    ctx.lineTo( 220, 103 );
     ctx.lineWidth = 4;
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#0A3871';
@@ -183,8 +183,8 @@ function gallowsNoose( ctx ) {
 }
 function gallowsCrossbar( ctx ) {
     ctx.beginPath();
-    ctx.moveTo( 75, 75 );
-    ctx.lineTo( 275, 75 );
+    ctx.moveTo( 50, 3 );
+    ctx.lineTo( 220, 3 );
     ctx.lineWidth = 4;
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#0A3871';
@@ -192,8 +192,8 @@ function gallowsCrossbar( ctx ) {
 }
 function gallowsPost( ctx ) {
     ctx.beginPath();
-    ctx.moveTo( 75, 75 );
-    ctx.lineTo( 75, 500 );
+    ctx.moveTo( 50, 3 );
+    ctx.lineTo( 50, 500 );
     ctx.lineWidth = 4;
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#0A3871';
@@ -201,7 +201,7 @@ function gallowsPost( ctx ) {
 }
 function gallowsBase( ctx ) {
     ctx.beginPath();
-    ctx.moveTo( 25, 500 );
+    ctx.moveTo( 3, 500 );
     ctx.lineTo( 375, 500 );
     ctx.lineWidth = 4;
     ctx.lineCap = 'round';

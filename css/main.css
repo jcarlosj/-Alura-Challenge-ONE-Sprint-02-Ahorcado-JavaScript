@@ -162,7 +162,7 @@ a {
     align-items: flex-end;
     display: flex;
     justify-content: end;
-    margin: 0 0 10rem 0;
+    margin: 0 0 16rem 0;
     max-width: 400px;
     width: 100%;
 }
@@ -172,7 +172,6 @@ a {
     font-weight: 500;
     max-width: 33%;
     width: 100%;
-
 }
 
 .alert-box {
