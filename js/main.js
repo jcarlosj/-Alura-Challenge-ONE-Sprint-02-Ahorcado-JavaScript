@@ -235,23 +235,28 @@ class Game {
     captureKey( event ) {
         const separateWord = this.wordSelected.split( '' );
         let found = false;
+
+        if( this.isAlphabetic( event.key ) ) {
+            /** Itera todos los caracteres de la palabra secreta y valida si hay coincidencia con la entrada por teclado */
+            separateWord.forEach( ( char, index ) => {
+                if( char === event.key ) {
+                    this.showCharacter[ index ] = true;
+                    found = true;
+                }
+            });
+    
+            /** Valida si encontro alguna coincidencia */
+            if( ! found )
+                this.wrongCharacters.add( event.key );
+    
+            console.log( separateWord );
+            console.log( this.showCharacter );
+            console.log( this.wrongCharacters );
+    
+            this.showWord();
+            this.showWrongCharacters();    
+        }
         
-        separateWord.forEach( ( char, index ) => {
-            if( char === event.key ) {
-                this.showCharacter[ index ] = true;
-                found = true;
-            }
-        });
-
-        if( ! found )
-            this.wrongCharacters.add( event.key );
-
-        console.log( separateWord );
-        console.log( this.showCharacter );
-        console.log( this.wrongCharacters );
-
-        this.showWord();
-        this.showWrongCharacters();
     }
 
     showWord() {
@@ -301,6 +306,15 @@ class Game {
         console.log( this.wrongCharacters );
         console.log( wrongCharactersEl );
         
+    }
+
+    isAlphabetic( key ) {
+        let letters = /^[A-Za-z]+$/;
+
+        if( key.match( letters ) )
+            return true;
+        
+        return false;
     }
 
 }
