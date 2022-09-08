@@ -148,6 +148,32 @@ a {
     text-transform: uppercase;
     width: 1.4rem;
 }
+.won {
+    display: grid;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    place-items: center;
+    position: absolute;
+    top: 0;
+    width: 100vh;
+}
+.won-box {
+    align-items: flex-end;
+    display: flex;
+    justify-content: end;
+    margin: 0 0 10rem 0;
+    max-width: 400px;
+    width: 100%;
+}
+.won-message {
+    color: red;
+    font-size: 1.4rem;
+    font-weight: 500;
+    max-width: 33%;
+    width: 100%;
+
+}
 
 .alert-box {
     background: #FFFFFF;

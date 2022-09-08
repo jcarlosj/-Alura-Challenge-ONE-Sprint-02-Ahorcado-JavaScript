@@ -24,6 +24,28 @@ function buttonEvents( game ) {
 
     const captureKey = event => {
         game.captureKey( event );
+
+        /** Verifica si hay ganador para eliminar el evento 'keydown' */
+        if( game.isWinner() ) {
+            const
+                divClassCanvas = document.querySelector( '.canvas' ),
+                pEl = document.createElement( 'p' ),
+                spanBoxEl = document.createElement( 'span' ),
+                spanMessageEl = document.createElement( 'span' );
+
+            console.log( divClassCanvas );
+
+            pEl.classList.add( 'won' );
+            spanBoxEl.classList.add( 'won-box' );
+            spanMessageEl.classList.add( 'won-message' );
+            spanMessageEl.textContent = 'Ganaste Felicidades!';
+            spanBoxEl.appendChild( spanMessageEl );
+
+            pEl.appendChild( spanBoxEl );
+            divClassCanvas.appendChild( pEl );
+
+            bodyEl.removeEventListener( 'keydown', captureKey, false );
+        }
     }
 
     btnStart.addEventListener( 'click', () => {
@@ -193,6 +215,7 @@ class Game {
     wordSelected = '';
     isStarted = false;
     wrongCharacters = new Set();
+    
 
     constructor( words = [] ) {
         this.words = words.map( word => word.toLowerCase() );
@@ -256,7 +279,7 @@ class Game {
             console.log( this.wrongCharacters );
     
             this.showWord();
-            this.showWrongCharacters();    
+            this.showWrongCharacters();  
         }
         
     }
@@ -319,6 +342,15 @@ class Game {
         return false;
     }
 
+    isCompleteWord() {
+
+        return this.showCharacter.every( value => value === true );
+    }
+
+    isWinner() {
+        console.clear();
+        return this.isCompleteWord();
+    }
 }
 
 

@@ -31,3 +31,13 @@
 .canvas-layout {
     border: 1px dotted red;
 }
+
+.won {
+    border: 1px dotted blue;
+}
+.won-box {
+    border: 1px dotted red;
+}
+.won-message {
+    border: 1px dotted green;
+}
