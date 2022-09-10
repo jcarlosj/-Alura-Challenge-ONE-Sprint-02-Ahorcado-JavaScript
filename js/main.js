@@ -25,27 +25,6 @@ function buttonEvents( game ) {
     const captureKey = event => {
         game.captureKey( event );
 
-        function showMessage({ className = 'won-message', msg }) {
-            const
-                sectionClassGame = document.querySelector( '.main-content' ),
-                pEl = document.createElement( 'p' ),
-                spanBoxEl = document.createElement( 'span' ),
-                spanMessageEl = document.createElement( 'span' );
-
-            console.log( sectionClassGame );
-
-            pEl.classList.add( 'won' );
-            spanBoxEl.classList.add( 'won-box' );
-            spanMessageEl.classList.add( className );
-            spanMessageEl.textContent = msg;
-            spanBoxEl.appendChild( spanMessageEl );
-
-            pEl.appendChild( spanBoxEl );
-            sectionClassGame.appendChild( pEl );
-
-            bodyEl.removeEventListener( 'keydown', captureKey, false );
-        }
-
         /** Verifica si hay ganador para eliminar el evento 'keydown' */
         if( game.isWinner() ) {
             showMessage({ msg: 'Ganaste Felicidades!' });
@@ -58,6 +37,35 @@ function buttonEvents( game ) {
                 showMessage({ msg: 'Final del juego!', nameClass: 'game-over' });
         }
 
+    }
+
+    function showMessage({ className = 'won-message', msg }) {
+        const
+            sectionClassGame = document.querySelector( '.main-content' ),
+            pEl = document.createElement( 'p' ),
+            spanBoxEl = document.createElement( 'span' ),
+            spanMessageEl = document.createElement( 'span' );
+
+        console.log( sectionClassGame );
+
+        pEl.classList.add( 'won' );
+        spanBoxEl.classList.add( 'won-box' );
+        spanMessageEl.classList.add( className );
+        spanMessageEl.textContent = msg;
+        spanBoxEl.appendChild( spanMessageEl );
+
+        pEl.appendChild( spanBoxEl );
+        sectionClassGame.appendChild( pEl );
+
+        bodyEl.removeEventListener( 'keydown', captureKey, false );
+    }
+
+    function removeMessage() {
+        const wonEl = document.querySelector( '.won' );
+
+        if( wonEl ) {
+            wonEl.remove();
+        }
     }
 
     btnStart.addEventListener( 'click', () => {
@@ -92,6 +100,7 @@ function buttonEvents( game ) {
     });
 
     btnNewGame.addEventListener( 'click', () => {
+        removeMessage();
         bodyEl.addEventListener( 'keydown', captureKey );
         drawHangman( game.numberWrongLetters() );
         game.selectWord();
@@ -102,6 +111,7 @@ function buttonEvents( game ) {
         sectionGame.style.display = 'none';
         sectionHome.style.display = 'flex';
 
+        removeMessage();
         bodyEl.removeEventListener( 'keydown', captureKey, false );
         game.desist();
         game.stop();
