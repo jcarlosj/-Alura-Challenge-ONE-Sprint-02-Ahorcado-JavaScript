@@ -46,6 +46,11 @@ function buttonEvents( game ) {
 
             bodyEl.removeEventListener( 'keydown', captureKey, false );
         }
+        else if( game.numberWrongLetters() ) {
+            console.log( game.numberWrongLetters() );
+            draw( game.numberWrongLetters() );
+        }
+
     }
 
     btnStart.addEventListener( 'click', () => {
@@ -53,6 +58,7 @@ function buttonEvents( game ) {
         sectionGame.style.display = 'block';
         
         bodyEl.addEventListener( 'keydown', captureKey );
+        draw( game.numberWrongLetters() );
         game.selectWord();
         showConsole( 'Start Game!', game.wordSelected );
     });
@@ -77,6 +83,7 @@ function buttonEvents( game ) {
 
     btnNewGame.addEventListener( 'click', () => {
         bodyEl.addEventListener( 'keydown', captureKey );
+        draw( game.numberWrongLetters() );
         game.selectWord();
         showConsole( 'New Game!', `${ game.isStarted } - ${ game.wordSelected }` );
     });
@@ -93,120 +100,89 @@ function buttonEvents( game ) {
 }
 
 /** Dibujando el Ahorcado */
-function hangmanDrawing() {
-    const 
+function draw( numberWrongLetters ) {
+    const
         canvasEl = document.querySelector( '.canvas-layout' ),
         ctx = canvasEl.getContext( '2d' );
+        hangman = {
+            0: function() {
+                ctx.fillStyle = 'transparent';
+                ctx.fillRect( 0, 0, 400, 600 ); 
 
-    ctx.fillStyle = 'transparent';
-    ctx.fillRect( 0, 0, 400, 600 ); 
+                draw( ctx, gallowsBase );
+            },
+            1: () => draw( ctx, gallowsPost ),
+            2: () => draw( ctx, gallowsCrossbar ),
+            3: () => draw( ctx, gallowsNoose ),
+            4: () => draw( ctx, handedHead ),
+            5: () => draw( ctx, handedBody ),
+            6: () => draw( ctx, hangedRightLeg ),
+            7: () => draw( ctx, hangedLeftLeg ),
+            8: () => draw( ctx, hangedRightArm ),
+            9: () => draw( ctx, hangedLeftArm )
+        };
+    
+    /** Valida que la longitud del array de letras erradas no supere el tamaño del objeto que lanza las funciones de dibujo */
+    if( numberWrongLetters < Object.keys( hangman ).length ) {
+        hangman[ numberWrongLetters ] ();
+    }
 
-    gallowsBase( ctx );
-    gallowsPost( ctx );
-    gallowsCrossbar( ctx );
-    gallowsNoose( ctx );
-    handedHead( ctx );
-    handedBody( ctx );
-    hangedLeftLeg( ctx );
-    hangedRightLeg( ctx );
-    hangedLeftArm( ctx );
-    hangedRightArm( ctx );
-}
+    function draw( ctx, done ) {
+        ctx.beginPath();
+        done( ctx );
+        ctx.lineWidth = 4;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#0A3871';
+        ctx.stroke();
+    }
 
-function hangedLeftArm( ctx ) {
-    ctx.beginPath();
-    ctx.moveTo( 220, 190 ); 
-    ctx.lineTo( 180, 270 ); 
-    ctx.lineWidth = 4;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = '#0A3871';
-    ctx.stroke();
-}
-function hangedRightArm( ctx ) {
-    ctx.beginPath();
-    ctx.moveTo( 220, 190 );
-    ctx.lineTo( 260, 270 );
-    ctx.lineWidth = 4;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = '#0A3871';
-    ctx.stroke();
-}
-function hangedLeftLeg( ctx ) {
-    ctx.beginPath();
-    ctx.moveTo( 220, 285 ); 
-    ctx.lineTo( 180, 395 );
-    ctx.lineWidth = 4;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = '#0A3871';
-    ctx.stroke();
-}
-function hangedRightLeg( ctx ) {
-    ctx.beginPath();
-    ctx.moveTo( 220, 285 ); 
-    ctx.lineTo( 260, 395 );
-    ctx.lineWidth = 4;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = '#0A3871';
-    ctx.stroke();
-}
-function handedBody( ctx ) {
-    ctx.beginPath();
-    ctx.moveTo( 220, 190 ); 
-    ctx.lineTo( 220, 285 );
-    ctx.lineWidth = 4;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = '#0A3871';
-    ctx.stroke();
-}
-function handedHead( ctx ) {
-    let 
-        radius = 40,
-        centerX = 275,
-        centerY = 220;
+    function hangedLeftArm( ctx ) {
+        ctx.moveTo( 220, 190 ); 
+        ctx.lineTo( 180, 270 ); 
+    }
+    function hangedRightArm( ctx ) {
+        ctx.moveTo( 220, 190 );
+        ctx.lineTo( 260, 270 );
+    }
+    function hangedLeftLeg( ctx ) {
+        ctx.moveTo( 220, 285 ); 
+        ctx.lineTo( 180, 395 );
+    }
+    function hangedRightLeg( ctx ) {
+        ctx.moveTo( 220, 285 ); 
+        ctx.lineTo( 260, 395 );
+    }
+    function handedBody( ctx ) {
+        ctx.moveTo( 220, 190 ); 
+        ctx.lineTo( 220, 285 );
+    }
+    function handedHead( ctx ) {
+        let 
+            radius = 40,
+            centerX = 275,
+            centerY = 220;
+    
+        ctx.arc( 220, 147, radius, 0, 2 * Math.PI, false );
+        ctx.fillStyle = 'transparent';
+        ctx.fill();
+    }
+    function gallowsNoose( ctx ) {
+        ctx.moveTo( 220, 3 );
+        ctx.lineTo( 220, 103 );
+    }
+    function gallowsCrossbar( ctx ) {
+        ctx.moveTo( 50, 3 );
+        ctx.lineTo( 220, 3 );
+    }
+    function gallowsPost( ctx ) {
+        ctx.moveTo( 50, 3 );
+        ctx.lineTo( 50, 500 );
+    }
+    function gallowsBase( ctx ) {
+        ctx.moveTo( 3, 500 );
+        ctx.lineTo( 375, 500 );
+    }
 
-    ctx.beginPath();
-    ctx.arc( 220, 147, radius, 0, 2 * Math.PI, false );
-    ctx.fillStyle = 'transparent';
-    ctx.fill();
-    ctx.lineWidth = 4;
-    ctx.strokeStyle = '#0A3871';
-    ctx.stroke();
-}
-function gallowsNoose( ctx ) {
-    ctx.beginPath();
-    ctx.moveTo( 220, 3 );
-    ctx.lineTo( 220, 103 );
-    ctx.lineWidth = 4;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = '#0A3871';
-    ctx.stroke();
-}
-function gallowsCrossbar( ctx ) {
-    ctx.beginPath();
-    ctx.moveTo( 50, 3 );
-    ctx.lineTo( 220, 3 );
-    ctx.lineWidth = 4;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = '#0A3871';
-    ctx.stroke();
-}
-function gallowsPost( ctx ) {
-    ctx.beginPath();
-    ctx.moveTo( 50, 3 );
-    ctx.lineTo( 50, 500 );
-    ctx.lineWidth = 4;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = '#0A3871';
-    ctx.stroke();
-}
-function gallowsBase( ctx ) {
-    ctx.beginPath();
-    ctx.moveTo( 3, 500 );
-    ctx.lineTo( 375, 500 );
-    ctx.lineWidth = 4;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = '#0A3871';
-    ctx.stroke();
 }
 
 /** Agregar palabras */
@@ -351,6 +327,11 @@ class Game {
         console.clear();
         return this.isCompleteWord();
     }
+
+    numberWrongLetters() {
+
+        return this.wrongCharacters.size;
+    }
 }
 
 
@@ -364,5 +345,4 @@ class Game {
     ]);
 
     buttonEvents( game );
-    hangmanDrawing();
 })();
