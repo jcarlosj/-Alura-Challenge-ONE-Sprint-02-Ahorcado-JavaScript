@@ -352,7 +352,17 @@ class Game {
 
     isWinner() {
         console.clear();
+        this.deleteWord();
+
+        console.log( this.words );
+        console.log( this.wordSelected );
+
         return this.isCompleteWord();
+    }
+
+    deleteWord() {
+        if( this.isCompleteWord() )
+            this.words = this.words.filter( word => word !== this.wordSelected );
     }
 
     numberWrongLetters() {
