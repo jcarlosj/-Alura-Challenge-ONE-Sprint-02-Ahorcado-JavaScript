@@ -27,12 +27,12 @@ function buttonEvents( game ) {
 
         function showMessage({ className = 'won-message', msg }) {
             const
-                divClassCanvas = document.querySelector( '.canvas' ),
+                sectionClassGame = document.querySelector( '.main-content' ),
                 pEl = document.createElement( 'p' ),
                 spanBoxEl = document.createElement( 'span' ),
                 spanMessageEl = document.createElement( 'span' );
 
-            console.log( divClassCanvas );
+            console.log( sectionClassGame );
 
             pEl.classList.add( 'won' );
             spanBoxEl.classList.add( 'won-box' );
@@ -41,7 +41,7 @@ function buttonEvents( game ) {
             spanBoxEl.appendChild( spanMessageEl );
 
             pEl.appendChild( spanBoxEl );
-            divClassCanvas.appendChild( pEl );
+            sectionClassGame.appendChild( pEl );
 
             bodyEl.removeEventListener( 'keydown', captureKey, false );
         }
@@ -226,6 +226,7 @@ class Game {
     /** Elimina palabra secreta seleccionada */
     desist() {
         this.wordSelected = '';
+        this.wrongCharacters.clear();
     }
 
     /** Agrega una nueva palabra secreta */
