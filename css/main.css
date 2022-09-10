@@ -166,7 +166,8 @@ a {
     max-width: 400px;
     width: 100%;
 }
-.won-message {
+.won-message,
+.game-over {
     color: red;
     font-size: 1.4rem;
     font-weight: 500;

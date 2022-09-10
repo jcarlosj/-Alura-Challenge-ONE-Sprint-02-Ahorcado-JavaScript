@@ -25,8 +25,7 @@ function buttonEvents( game ) {
     const captureKey = event => {
         game.captureKey( event );
 
-        /** Verifica si hay ganador para eliminar el evento 'keydown' */
-        if( game.isWinner() ) {
+        function showMessage({ className = 'won-message', msg }) {
             const
                 divClassCanvas = document.querySelector( '.canvas' ),
                 pEl = document.createElement( 'p' ),
@@ -37,8 +36,8 @@ function buttonEvents( game ) {
 
             pEl.classList.add( 'won' );
             spanBoxEl.classList.add( 'won-box' );
-            spanMessageEl.classList.add( 'won-message' );
-            spanMessageEl.textContent = 'Ganaste Felicidades!';
+            spanMessageEl.classList.add( className );
+            spanMessageEl.textContent = msg;
             spanBoxEl.appendChild( spanMessageEl );
 
             pEl.appendChild( spanBoxEl );
@@ -46,9 +45,17 @@ function buttonEvents( game ) {
 
             bodyEl.removeEventListener( 'keydown', captureKey, false );
         }
-        else if( game.numberWrongLetters() ) {
-            console.log( game.numberWrongLetters() );
-            draw( game.numberWrongLetters() );
+
+        /** Verifica si hay ganador para eliminar el evento 'keydown' */
+        if( game.isWinner() ) {
+            showMessage({ msg: 'Ganaste Felicidades!' });
+        }
+        else {
+            const gameOver = drawHangman( game.numberWrongLetters() );
+            // console.log( gameOver );
+            
+            if( gameOver )
+                showMessage({ msg: 'Final del juego!', nameClass: 'game-over' });
         }
 
     }
@@ -58,7 +65,7 @@ function buttonEvents( game ) {
         sectionGame.style.display = 'block';
         
         bodyEl.addEventListener( 'keydown', captureKey );
-        draw( game.numberWrongLetters() );
+        drawHangman( game.numberWrongLetters() );
         game.selectWord();
         showConsole( 'Start Game!', game.wordSelected );
     });
@@ -83,7 +90,7 @@ function buttonEvents( game ) {
 
     btnNewGame.addEventListener( 'click', () => {
         bodyEl.addEventListener( 'keydown', captureKey );
-        draw( game.numberWrongLetters() );
+        drawHangman( game.numberWrongLetters() );
         game.selectWord();
         showConsole( 'New Game!', `${ game.isStarted } - ${ game.wordSelected }` );
     });
@@ -100,7 +107,8 @@ function buttonEvents( game ) {
 }
 
 /** Dibujando el Ahorcado */
-function draw( numberWrongLetters ) {
+function drawHangman( numberWrongLetters ) {
+    let isFinished = false;
     const
         canvasEl = document.querySelector( '.canvas-layout' ),
         ctx = canvasEl.getContext( '2d' );
@@ -119,7 +127,11 @@ function draw( numberWrongLetters ) {
             6: () => draw( ctx, hangedRightLeg ),
             7: () => draw( ctx, hangedLeftLeg ),
             8: () => draw( ctx, hangedRightArm ),
-            9: () => draw( ctx, hangedLeftArm )
+            9: function() {
+                draw( ctx, hangedLeftArm );
+                isFinished = true;
+            }
+            // 9: () => draw( ctx, hangedLeftArm )
         };
     
     /** Valida que la longitud del array de letras erradas no supere el tamaño del objeto que lanza las funciones de dibujo */
@@ -183,6 +195,7 @@ function draw( numberWrongLetters ) {
         ctx.lineTo( 375, 500 );
     }
 
+    return isFinished;
 }
 
 /** Agregar palabras */
