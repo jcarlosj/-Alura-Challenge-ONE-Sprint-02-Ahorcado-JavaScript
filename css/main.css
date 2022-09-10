@@ -64,8 +64,12 @@ a {
     justify-content: center;
     line-height: 150%;
     outline: none;
-    width: 99%;
     resize: none;
+    text-transform: uppercase;
+    width: 99%;
+}
+.textarea::placeholder {
+    text-transform: initial;
 }
 
 .actions {

@@ -80,6 +80,9 @@ function buttonEvents( game ) {
         sectionGame.style.display = 'block';
 
         game.addWord( newWord.value );
+        bodyEl.addEventListener( 'keydown', captureKey );
+        drawHangman( game.numberWrongLetters() );
+        game.selectWord();
         showConsole( 'Save and Start Game!', `${ game.isStarted } - ${ game.wordSelected }`  );
     });
 
