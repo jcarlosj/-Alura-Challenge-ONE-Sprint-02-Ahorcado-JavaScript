@@ -41,7 +41,7 @@ function buttonEvents( game ) {
 
     function showMessage({ className = 'won-message', msg }) {
         const
-            sectionClassGame = document.querySelector( '.main-content' ),
+            sectionClassGame = document.querySelector( 'body' ),
             pEl = document.createElement( 'p' ),
             spanBoxEl = document.createElement( 'span' ),
             spanMessageEl = document.createElement( 'span' );
@@ -128,7 +128,7 @@ function drawHangman( numberWrongLetters ) {
         hangman = {
             0: function() {
                 ctx.fillStyle = 'transparent';
-                ctx.fillRect( 0, 0, 400, 600 ); 
+                ctx.fillRect( 0, 0, 400, 500 ); 
 
                 draw( ctx, gallowsBase );
             },
@@ -204,8 +204,8 @@ function drawHangman( numberWrongLetters ) {
         ctx.lineTo( 50, 500 );
     }
     function gallowsBase( ctx ) {
-        ctx.moveTo( 3, 500 );
-        ctx.lineTo( 375, 500 );
+        ctx.moveTo( 3, 499 );
+        ctx.lineTo( 375, 499 );
     }
 
     return isFinished;

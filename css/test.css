@@ -19,25 +19,26 @@
 }
 
 .result {
-    border: 1px solid orange;
+    /* border: 1px solid orange; */
 }
 
 .actions {
-    border: 1px dotted darkorange;
+    /* border: 1px dotted darkorange; */
 }
 .canvas {
-    border: 1px dotted blue;
+    /* border: 1px dotted blue; */
 }
 .canvas-layout {
-    border: 1px dotted red;
+    /* border: 1px dotted red; */
 }
 
 .won {
-    border: 1px dotted blue;
+    /* border: 1px dotted blue;
+    background-color: rgba( 0, 0, 0, .1 ); */
 }
 .won-box {
-    border: 1px dotted red;
+    /* border: 1px dotted red; */
 }
 .won-message {
-    border: 1px dotted green;
+    /* border: 1px dotted green; */
 }

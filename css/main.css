@@ -30,16 +30,14 @@ a {
 
 .logo-link {
     display: inline-block;
-    padding: 16px 0 80px 0;
-}
-.canvas {
-    padding-bottom: 2rem;
+    margin: 2rem 0;
 }
 .canvas-layout {
     align-items: center;
     display: flex;
     justify-content: center;
     margin: 0 auto;
+    width: 100%;
 }
 
 /** Sections */
@@ -130,14 +128,21 @@ a {
 /** Palabra secreta y caracteres errados */
 #secret-word,
 #wrong-characters {
+    font-size: 1.6rem;
+    gap: 0.4rem;
     align-items: center;
     display: flex;
-    font-size: 2rem;
-    gap: 1rem;
+    flex-wrap: wrap;
     justify-content: center;
+    padding: 0;
+}
+#wrong-characters {
+    font-size: 1.1rem;
+    gap: 0.1rem;
 }
 .character {
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid #0A3871;
+    color: #0A3871;
     list-style: none;
     text-align: center;
     text-transform: uppercase;
@@ -154,19 +159,19 @@ a {
 }
 .won {
     display: grid;
-    height: 100vh;
+    height: 85vh;
     margin: 0;
     padding: 0;
     place-items: center;
     position: absolute;
     top: 0;
-    width: 100vh;
+    width: 100%;
 }
 .won-box {
     align-items: flex-end;
     display: flex;
     justify-content: end;
-    margin: 0 0 16rem 0;
+    margin: 0 0 9rem 0;
     max-width: 400px;
     width: 100%;
 }
@@ -199,14 +204,29 @@ a {
 .message,
 .copyright {
     color: #495057;
-    font-weight: 400;
     font-size: 16px;
+    font-weight: 400;
     line-height: 150%;
+    margin: 2rem 0;
     text-align: center;
 }
 
 .copyright {
     font-size: 14px;
+}
+
+@media( min-width: 576px ) {
+    #secret-word,
+    #wrong-characters {
+        font-size: 1.4rem;
+        gap: 0.4rem;
+    }
+    .won {
+        height: 78vh;
+    }
+    .canvas-layout {
+        width: initial;
+    }
 }
 
 @media ( min-width: 768px ) {
@@ -240,7 +260,7 @@ a {
     }
     .main {
         justify-content: space-around;
-        margin: 8rem 0 2rem 0;
+        margin: 0;
     }
     .main-content {
         flex-direction: row;
