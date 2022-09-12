@@ -84,6 +84,20 @@ function buttonEvents( game ) {
     });
 
     btnSave.addEventListener( 'click', () => {
+        const infoEl = document.querySelector( 'p.info' );
+
+        // ! Verificar que se ingresa una cadena que no esta vacia, no tenga menos de 2 caracteres, ni mas de 23
+        if( ! newWord.value ) {
+            infoEl.textContent = 'La cadena ingresada no puede estar vacia';
+            
+            return;
+        } 
+        if( newWord.value.length < 3 || newWord.value.length > 23 ) {
+            infoEl.textContent = 'La cadena debe tener entre 3 y 23 caracteres';           
+
+            return;
+        }
+
         sectionNewWord.style.display = 'none';
         sectionGame.style.display = 'block';
 
@@ -92,6 +106,7 @@ function buttonEvents( game ) {
         drawHangman( game.numberWrongLetters() );
         game.selectWord();
         showConsole( 'Save and Start Game!', `${ game.isStarted } - ${ game.wordSelected }`  );
+        newWord.value = '';
     });
 
     btnCancel.addEventListener( 'click', () => {
