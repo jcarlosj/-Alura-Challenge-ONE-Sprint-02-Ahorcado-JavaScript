@@ -113,10 +113,21 @@ function buttonEvents( game ) {
 
         removeMessage();
         bodyEl.removeEventListener( 'keydown', captureKey, false );
+        clearHangman();
         game.desist();
         game.stop();
         showConsole( 'Desist Game!', `${ game.isStarted } - ${ game.wordSelected }` );
     });
+}
+
+
+function clearHangman() {
+    const
+        canvasEl = document.querySelector( '.canvas-layout' ),
+        ctx = canvasEl.getContext( '2d' );
+        width = 400,
+        height = 500;
+    ctx.clearRect( 0, 0, width, height );
 }
 
 /** Dibujando el Ahorcado */
@@ -125,10 +136,12 @@ function drawHangman( numberWrongLetters ) {
     const
         canvasEl = document.querySelector( '.canvas-layout' ),
         ctx = canvasEl.getContext( '2d' );
+        width = 400,
+        height = 500,
         hangman = {
             0: function() {
                 ctx.fillStyle = 'transparent';
-                ctx.fillRect( 0, 0, 400, 500 ); 
+                ctx.fillRect( 0, 0, width, height ); 
 
                 draw( ctx, gallowsBase );
             },
